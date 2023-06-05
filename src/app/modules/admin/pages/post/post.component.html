@@ -1,0 +1,10 @@
+<p>post works!</p>
+<input [(ngModel)]="post.title" placeholder="title">
+<input [(ngModel)]="post.author" placeholder="author">
+<input [(ngModel)]="post.content" placeholder="content">
+<input [(ngModel)]="post.publishDate" placeholder="publishDate">
+<button (click)="add()"> Add</button>
+
+<ul>
+    <li *ngFor="let item of posts">{{item.title}} </li>
+</ul>

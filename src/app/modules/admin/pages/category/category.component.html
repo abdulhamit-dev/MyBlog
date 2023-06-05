@@ -1,0 +1,9 @@
+<p>category works!</p>
+
+<input [(ngModel)]="category.name" placeholder="Category Name"  >
+
+<button (click)="add()">Add</button>
+
+<ul>
+    <li *ngFor="let category of categories">{{category.name}} </li>
+</ul>
