@@ -1,10 +1,15 @@
-<p>post works!</p>
-<input [(ngModel)]="post.title" placeholder="title">
-<input [(ngModel)]="post.author" placeholder="author">
-<input [(ngModel)]="post.content" placeholder="content">
-<input [(ngModel)]="post.publishDate" placeholder="publishDate">
-<button (click)="add()"> Add</button>
 
-<ul>
-    <li *ngFor="let item of posts">{{item.title}} </li>
-</ul>
+<div nz-row [nzGutter]="[16, 24]">
+  <div nz-col class="gutter-row" nzSpan="8">
+    <input nz-input placeholder="Title" [(ngModel)]="post.title" [style]="{'max-width':'500px'}"/>
+  </div>
+  <div nz-col class="gutter-row" nzSpan="8">
+    <input nz-input placeholder="Author" [(ngModel)]="post.author" [style]="{'max-width':'500px'}" />
+  </div>
+  <div nz-col class="gutter-row" nzSpan="24">
+    <ckeditor [editor]="Editor" [(ngModel)]="post.content"></ckeditor>
+  </div>
+  <div nz-col class="gutter-row" nzSpan="24">
+    <button nz-button nzType="primary" (click)="add()">Save</button>
+  </div>
+</div>

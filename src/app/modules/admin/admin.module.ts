@@ -5,6 +5,8 @@ import { UserComponent } from './pages/user/user.component';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { PostComponent } from './pages/post/post.component';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { NgzorroModule } from '../ngzorro/ngzorro.module';
 
 const routes: Routes = [
   {
@@ -21,12 +23,15 @@ const routes: Routes = [
   declarations: [
     CategoryComponent,
     UserComponent,
-    PostComponent
+    PostComponent,
+    
   ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    FormsModule
+    FormsModule,
+    NgzorroModule,
+    CKEditorModule
 
   ]
 })

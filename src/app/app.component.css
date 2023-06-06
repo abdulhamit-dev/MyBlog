@@ -24,10 +24,12 @@
     color: #fff; */
     /* min-height: 120px;
     line-height: 120px; */
+    margin: 20px;
   }
 
   nz-layout {
     margin-bottom: 48px;
+
   }
 
   nz-layout nz-layout,

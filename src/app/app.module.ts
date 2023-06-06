@@ -9,30 +9,33 @@ import { FooterBarComponent } from './layout/footer-bar/footer-bar.component';
 
 import { AngularFireModule } from '@angular/fire/compat';
 
-import { NzButtonModule } from 'ng-zorro-antd/button';
-import { NzLayoutModule } from 'ng-zorro-antd/layout';
-import { NzListModule } from 'ng-zorro-antd/list';
+
 
 import { environment } from 'src/envitonments/environment';
 import { AdminModule } from './modules/admin/admin.module';
+import { NgzorroModule } from './modules/ngzorro/ngzorro.module';
+import { PostDetailComponent } from './components/post-detail/post-detail.component';
+import { PostsComponent } from './components/posts/posts.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     TopBarComponent,
     SideBarComponent,
-    FooterBarComponent
+    FooterBarComponent,
+    PostDetailComponent,
+    PostsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
 
     AdminModule,
-
+    NgzorroModule,
     AngularFireModule.initializeApp(environment.firebase),
-    NzLayoutModule,
-    NzButtonModule,
-    NzListModule
+   
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

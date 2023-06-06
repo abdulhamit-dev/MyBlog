@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Post } from 'src/app/core/models/posts';
 import { PostService } from 'src/app/core/services/post.service';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
   selector: 'app-post',
@@ -11,6 +12,8 @@ export class PostComponent implements OnInit {
   post: Post = new Post();
   posts:Post[]=[]
 
+  public Editor = ClassicEditor;
+  editorContent: string="";
   constructor(private postService: PostService) {}
 
   ngOnInit(){
@@ -21,5 +24,9 @@ export class PostComponent implements OnInit {
 
   add() {
     this.postService.addPost(this.post);
+  }
+
+  save(){
+    console.log(this.editorContent)
   }
 }
