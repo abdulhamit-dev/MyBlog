@@ -8,7 +8,7 @@ import { SideBarComponent } from './layout/side-bar/side-bar.component';
 import { FooterBarComponent } from './layout/footer-bar/footer-bar.component';
 
 import { AngularFireModule } from '@angular/fire/compat';
-
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 
 
 import { environment } from 'src/envitonments/environment';
@@ -34,8 +34,7 @@ import { PostsComponent } from './components/posts/posts.component';
     AdminModule,
     NgzorroModule,
     AngularFireModule.initializeApp(environment.firebase),
-   
-    
+    AngularFireStorageModule
   ],
   providers: [],
   bootstrap: [AppComponent]

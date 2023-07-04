@@ -1,15 +1,32 @@
-
 <div nz-row [nzGutter]="[16, 24]">
   <div nz-col class="gutter-row" nzSpan="8">
-    <input nz-input placeholder="Title" [(ngModel)]="post.title" [style]="{'max-width':'500px'}"/>
+    <input nz-input placeholder="Title" [(ngModel)]="post.title" [style]="{'max-width':'500px'}" />
   </div>
   <div nz-col class="gutter-row" nzSpan="8">
     <input nz-input placeholder="Author" [(ngModel)]="post.author" [style]="{'max-width':'500px'}" />
+  </div>
+  <div nz-col class="gutter-row" nzSpan="24">
+    Kapak için resim seçiniz
+    <input type="file" (change)="upload($event)">
   </div>
   <div nz-col class="gutter-row" nzSpan="24">
     <ckeditor [editor]="Editor" [(ngModel)]="post.content"></ckeditor>
   </div>
   <div nz-col class="gutter-row" nzSpan="24">
     <button nz-button nzType="primary" (click)="add()">Save</button>
+  </div>
+
+</div>
+<hr>
+<div nz-row [nzGutter]="[16,16]" >
+  <div nz-col [nzSpan]="8"  *ngFor="let post of posts">
+      <nz-card nzHoverable style="width:350px" [nzCover]="coverTemplate">
+          <p *ngIf="!post.isActive" style="color: red;">passive</p><p *ngIf="post.isActive" style="color: green;"><b>active</b></p>
+          <nz-card-meta nzTitle="{{post.title}}" nzDescription="www.instagram.com"></nz-card-meta>
+          <button nz-button nzType="default" (click)="delete(post)">Delete</button>
+      </nz-card>
+      <ng-template #coverTemplate>
+          <img *ngIf="post.imageUrl" alt="example" src="{{post.imageUrl}}" />
+      </ng-template>
   </div>
 </div>
