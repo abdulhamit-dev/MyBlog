@@ -1,9 +1,34 @@
-<p>category works!</p>
 
-<input [(ngModel)]="category.name" placeholder="Category Name"  >
+<div nz-row [nzGutter]="[16, 24]">
+    <div nz-col class="gutter-row" nzSpan="8">
+      <input nz-input [(ngModel)]="category.name" placeholder="Category Name" [style]="{'max-width':'500px'}" />
+    </div>
+    <div nz-col class="gutter-row" nzSpan="2">
+        <nz-switch [(ngModel)]="category.isActive">Active</nz-switch>
+    </div>
+    <div nz-col class="gutter-row" nzSpan="8">
+        <button nz-button [nzType]="'primary'" (click)="save()">Save</button>
+    </div>
+</div>
 
-<button (click)="add()">Add</button>
+<nz-divider></nz-divider>
 
-<ul>
-    <li *ngFor="let category of categories">{{category.name}} </li>
-</ul>
+<nz-table #categoryTable [nzData]="categories">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Is Active</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let category of categoryTable.data">
+        <td>{{category.name}}</td>
+        <td>{{category.isActive}}</td>
+        <td>
+          <button nz-button (click)="edit(category)" >Edit</button>
+          <nz-divider nzType="vertical"></nz-divider>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>

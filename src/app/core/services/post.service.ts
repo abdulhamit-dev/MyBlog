@@ -18,12 +18,16 @@ export class PostService {
     private storage: AngularFireStorage
   ) {}
 
-  getPosts() {
+  posts() {
+     return this.db.list("post", ref => ref.orderByChild('isActive').equalTo(true)).snapshotChanges();
+  }
+
+  adminPosts(){
     return this.db.list("post").snapshotChanges();
-    // return this.db.list("post", ref => ref.orderByChild('isActive').equalTo(true)).valueChanges();
   }
 
   addPost(post: Post) {
+    console.log(post)
     return this.db.list("post").push(post);
   }
 

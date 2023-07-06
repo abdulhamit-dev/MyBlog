@@ -2,7 +2,6 @@ import { Component, OnInit } from "@angular/core";
 import { Post } from "src/app/core/models/posts";
 import { PostService } from "src/app/core/services/post.service";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import { AnyCatcher } from "rxjs/internal/AnyCatcher";
 
 @Component({
   selector: "app-post",
@@ -22,24 +21,18 @@ export class PostComponent implements OnInit {
   constructor(private postService: PostService) {}
 
   ngOnInit() {
-    this.postService.getPosts().subscribe((rv) => {
-      this.posts = rv.map((post: any) => {
-        return { id: post.key, ...post.payload.val() };
-      });
-     
-    });
-
-    
-  }
-
-  add() {
-    console.log(this.post.content);
-    this.post.imageUrl=this.dURL==null?"":this.dURL;
-    this.postService.addPost(this.post);
+    this.loadData()
   }
 
   save() {
-    console.log(this.editorContent);
+    if (this.post.id == "") {
+      this.post.imageUrl = this.dURL == null ? "" : this.dURL;
+      this.postService.addPost(this.post);
+    } else {
+      this.postService.updatePost(this.post).then(() => {});
+    }
+
+    this.clear();
   }
 
   onFileSelected(event: any) {
@@ -55,17 +48,24 @@ export class PostComponent implements OnInit {
       return;
     }
 
-    this.postService.uploadImage(event).subscribe(
-      (downUrl) => {
-        this.dURL=downUrl
-      }
-    );
+    this.postService.uploadImage(event).subscribe((downUrl) => {
+      this.dURL = downUrl;
+    });
   }
 
-  delete(post:Post){
-    post.isActive=false;
-    this.postService.updatePost(post).then(()=>{
-      alert("Kayıt silindi")
-    })
+  edit(post: Post) {
+    this.post = post;
+  }
+
+  clear() {
+    this.post = new Post();
+  }
+
+  loadData(){
+    this.postService.adminPosts().subscribe((rv) => {
+      this.posts = rv.map((post: any) => {
+        return { id: post.key, ...post.payload.val() };
+      });
+    });
   }
 }

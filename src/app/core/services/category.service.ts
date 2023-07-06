@@ -11,11 +11,22 @@ export class CategoryService {
   constructor(private db:AngularFireDatabase) { }
 
   
-  getCategories(){
-   return this.db.list('category').valueChanges()
+  categories(){
+   return this.db.list("category", ref => ref.orderByChild('isActive').equalTo(true)).snapshotChanges();
   }
 
-  addCategories(category:Category){
+  adminCategories(){
+    return this.db.list('category').snapshotChanges()
+   }
+  add(category:Category){
    return this.db.list('category').push(category)
+  }
+
+  update(updatedCategory: Category) {
+    return this.db.list("category").update(updatedCategory.id, updatedCategory);
+  }
+
+  delete(key: string) {
+    return this.db.list("category").remove(key);
   }
 }

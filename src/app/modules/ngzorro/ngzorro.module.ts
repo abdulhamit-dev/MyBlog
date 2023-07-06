@@ -7,6 +7,9 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzSwitchModule } from 'ng-zorro-antd/switch';
+import { NzTableModule } from 'ng-zorro-antd/table';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
 
 
 @NgModule({
@@ -21,7 +24,10 @@ import { NzCardModule } from 'ng-zorro-antd/card';
     NzGridModule,
     NzInputModule,
     NzFormModule,
-    NzCardModule
+    NzCardModule,
+    NzSwitchModule,
+    NzTableModule,
+    NzDividerModule
   ]
 })
 export class NgzorroModule { }

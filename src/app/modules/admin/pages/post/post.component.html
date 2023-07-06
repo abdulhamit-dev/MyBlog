@@ -6,27 +6,36 @@
     <input nz-input placeholder="Author" [(ngModel)]="post.author" [style]="{'max-width':'500px'}" />
   </div>
   <div nz-col class="gutter-row" nzSpan="24">
+    Is Aktive
+    <nz-switch [(ngModel)]="post.isActive"></nz-switch>
+  </div>
+  <div nz-col class="gutter-row" nzSpan="24">
     Kapak için resim seçiniz
     <input type="file" (change)="upload($event)">
   </div>
+  
   <div nz-col class="gutter-row" nzSpan="24">
     <ckeditor [editor]="Editor" [(ngModel)]="post.content"></ckeditor>
   </div>
   <div nz-col class="gutter-row" nzSpan="24">
-    <button nz-button nzType="primary" (click)="add()">Save</button>
+    <button nz-button nzType="primary" (click)="save()">Save</button>
+    <button nz-button nzType="primary" (click)="clear()">Clear</button>
   </div>
 
 </div>
 <hr>
-<div nz-row [nzGutter]="[16,16]" >
-  <div nz-col [nzSpan]="8"  *ngFor="let post of posts">
-      <nz-card nzHoverable style="width:350px" [nzCover]="coverTemplate">
-          <p *ngIf="!post.isActive" style="color: red;">passive</p><p *ngIf="post.isActive" style="color: green;"><b>active</b></p>
-          <nz-card-meta nzTitle="{{post.title}}" nzDescription="www.instagram.com"></nz-card-meta>
-          <button nz-button nzType="default" (click)="delete(post)">Delete</button>
-      </nz-card>
-      <ng-template #coverTemplate>
-          <img *ngIf="post.imageUrl" alt="example" src="{{post.imageUrl}}" />
-      </ng-template>
+<div nz-row [nzGutter]="[16,16]">
+  <div nz-col [nzSpan]="8" *ngFor="let post of posts">
+    <nz-card nzHoverable style="width:350px" [nzCover]="coverTemplate">
+      <p *ngIf="!post.isActive" style="color: red;">passive</p>
+      <p *ngIf="post.isActive" style="color: green;"><b>active</b></p>
+      <nz-card-meta nzTitle="{{post.title}}"></nz-card-meta>
+      <!-- <button nz-button nzType="default" (click)="delete(post)">Delete</button> -->
+      <div [innerHTML]="post.content | truncate:20"></div>
+      <button nz-button nzType="primary" (click)="edit(post)">Edit</button>
+    </nz-card>
+    <ng-template #coverTemplate>
+      <img *ngIf="post.imageUrl" alt="example" src="{{post.imageUrl}}" />
+    </ng-template>
   </div>
 </div>

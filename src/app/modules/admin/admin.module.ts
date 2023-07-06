@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { PostComponent } from './pages/post/post.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { NgzorroModule } from '../ngzorro/ngzorro.module';
+import { TruncatePipe } from 'src/app/core/pipes/TruncatePipe';
 
 const routes: Routes = [
   {
@@ -24,7 +25,7 @@ const routes: Routes = [
     CategoryComponent,
     UserComponent,
     PostComponent,
-    
+    TruncatePipe
   ],
   imports: [
     CommonModule,
