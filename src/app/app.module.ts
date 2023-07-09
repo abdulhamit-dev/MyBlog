@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TopBarComponent } from './layout/top-bar/top-bar.component';
@@ -16,6 +16,7 @@ import { AdminModule } from './modules/admin/admin.module';
 import { NgzorroModule } from './modules/ngzorro/ngzorro.module';
 import { PostDetailComponent } from './components/post-detail/post-detail.component';
 import { PostsComponent } from './components/posts/posts.component';
+import { TruncatePipe } from './core/pipes/TruncatePipe';
 
 
 @NgModule({
@@ -25,16 +26,16 @@ import { PostsComponent } from './components/posts/posts.component';
     SideBarComponent,
     FooterBarComponent,
     PostDetailComponent,
-    PostsComponent
+    PostsComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-
     AdminModule,
     NgzorroModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

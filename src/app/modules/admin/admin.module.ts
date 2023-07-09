@@ -8,6 +8,7 @@ import { PostComponent } from './pages/post/post.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { NgzorroModule } from '../ngzorro/ngzorro.module';
 import { TruncatePipe } from 'src/app/core/pipes/TruncatePipe';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 const routes: Routes = [
   {
@@ -32,8 +33,8 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     FormsModule,
     NgzorroModule,
-    CKEditorModule
-
+    CKEditorModule,
+    ImageCropperModule
   ]
 })
 export class AdminModule { }

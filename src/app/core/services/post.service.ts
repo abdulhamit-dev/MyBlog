@@ -31,22 +31,32 @@ export class PostService {
     return this.db.list("post").push(post);
   }
 
-  uploadImage(event: any):Observable<string > {
-    const file = event.target.files[0];
-    const filePath = "resim/yuklenen/dizin/" + file.name;
-    const storageRef = this.storage.ref(filePath);
-    const task: AngularFireUploadTask = storageRef.put(file);
-    let downloadURL: string; // downloadURL değişkenini tanımlayın
+  uploadFile(file: File): Observable<string> {
+
+    const randomDigits = Math.floor(Math.random() * 9000) + 1000; 
+    const filePath = `resim/yuklenen/dizin/${randomDigits}_${file.name}`;
   
-    return task.snapshotChanges().pipe(
-      switchMap(() => {
-        return storageRef.getDownloadURL(); // downloadURL observable'ını döndürün
-      })
-    );
+    return new Observable<string>((observer) => {
+      const storageRef = this.storage.ref(filePath);
+      const task = storageRef.put(file, { contentType: file.type });
+  
+      task.snapshotChanges().pipe(
+        finalize(() => {
+          storageRef.getDownloadURL().subscribe(
+            (downloadURL) => {
+              observer.next(downloadURL);
+              observer.complete();
+            },
+            (error) => {
+              observer.error(error);
+            }
+          );
+        })
+      ).subscribe();
+    });
   }
 
   updatePost(updatedPost: Post) {
-    console.log(updatedPost)
     return this.db.list("post").update(updatedPost.id, updatedPost);
   }
 

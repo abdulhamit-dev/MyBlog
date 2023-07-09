@@ -13,8 +13,10 @@ export class PostsComponent implements OnInit {
   constructor(private postService: PostService) {}
 
   ngOnInit(): void {
-    // this.postService.getPosts().subscribe((rv) => {
-    //   this.posts = rv as any[];
-    // });
+    this.postService.posts().subscribe((rv) => {
+      this.posts = rv.map((post: any) => {
+        return { id: post.key, ...post.payload.val() };
+      });
+    });
   }
 }

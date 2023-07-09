@@ -6,4 +6,5 @@ export class Post{
     publishDate?:string
     imageUrl?:string
     isActive:boolean=true
+    categoryId?:string
 }

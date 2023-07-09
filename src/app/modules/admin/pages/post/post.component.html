@@ -1,41 +1,73 @@
 <div nz-row [nzGutter]="[16, 24]">
   <div nz-col class="gutter-row" nzSpan="8">
-    <input nz-input placeholder="Title" [(ngModel)]="post.title" [style]="{'max-width':'500px'}" />
+    <input nz-input placeholder="Title" [(ngModel)]="post.title" [style]="{ 'max-width': '500px' }" />
   </div>
   <div nz-col class="gutter-row" nzSpan="8">
-    <input nz-input placeholder="Author" [(ngModel)]="post.author" [style]="{'max-width':'500px'}" />
+    <input nz-input placeholder="Author" [(ngModel)]="post.author" [style]="{ 'max-width': '500px' }" />
   </div>
+
+  <div nz-col class="gutter-row" nzSpan="8">
+    <nz-select [(ngModel)]="category.id" nzPlaceHolder="Select a Category">
+      <nz-option *ngFor="let category of categories" nzValue="{{ category.id }}"
+        nzLabel="{{ category.name }}"></nz-option>
+    </nz-select>
+  </div>
+
   <div nz-col class="gutter-row" nzSpan="24">
     Is Aktive
     <nz-switch [(ngModel)]="post.isActive"></nz-switch>
   </div>
+
   <div nz-col class="gutter-row" nzSpan="24">
-    Kapak için resim seçiniz
-    <input type="file" (change)="upload($event)">
-  </div>
+    Select picture for cover
+   
+    <input type="file" (change)="fileChangeEvent($event)" #fileInputRef />
+    <image-cropper style="width: 768px;height: auto;" [imageChangedEvent]="imageChangedEvent"
+                    [aspectRatio]="4 / 2" [resizeToWidth]="768"
+                    [style.display]="showCropper ? null : 'none'" format="png" (imageCropped)="imageCropped($event)"
+                    (imageLoaded)="imageLoaded($event)"></image-cropper>
   
+  </div>
+
   <div nz-col class="gutter-row" nzSpan="24">
     <ckeditor [editor]="Editor" [(ngModel)]="post.content"></ckeditor>
   </div>
+
   <div nz-col class="gutter-row" nzSpan="24">
     <button nz-button nzType="primary" (click)="save()">Save</button>
+    <nz-divider nzType="vertical"></nz-divider>
     <button nz-button nzType="primary" (click)="clear()">Clear</button>
   </div>
-
 </div>
-<hr>
-<div nz-row [nzGutter]="[16,16]">
+
+<!-- <input type="file" (change)="fileChangeEvent($event)" /> -->
+<!-- <image-cropper
+    [imageChangedEvent]="imageChangedEvent"
+    [maintainAspectRatio]="true"
+    [aspectRatio]="4 / 3"
+    format="png"
+    (imageCropped)="imageCropped($event)"
+    (cropperReady)="cropperReady()"
+    (loadImageFailed)="loadImageFailed()"
+></image-cropper> -->
+
+
+
+<!-- <img [src]="croppedImage" /> -->
+
+
+<hr />
+<div nz-row [nzGutter]="[16, 16]">
   <div nz-col [nzSpan]="8" *ngFor="let post of posts">
-    <nz-card nzHoverable style="width:350px" [nzCover]="coverTemplate">
-      <p *ngIf="!post.isActive" style="color: red;">passive</p>
-      <p *ngIf="post.isActive" style="color: green;"><b>active</b></p>
-      <nz-card-meta nzTitle="{{post.title}}"></nz-card-meta>
-      <!-- <button nz-button nzType="default" (click)="delete(post)">Delete</button> -->
-      <div [innerHTML]="post.content | truncate:20"></div>
+    <nz-card nzHoverable style="width: 350px" [nzCover]="coverTemplate">
+      <p *ngIf="!post.isActive" style="color: red">passive</p>
+      <p *ngIf="post.isActive" style="color: green"><b>active</b></p>
+      <nz-card-meta nzTitle="{{ post.title }}"></nz-card-meta>
+      <div [innerHTML]="post.content | truncate : 20"></div>
       <button nz-button nzType="primary" (click)="edit(post)">Edit</button>
     </nz-card>
     <ng-template #coverTemplate>
-      <img *ngIf="post.imageUrl" alt="example" src="{{post.imageUrl}}" />
+      <img *ngIf="post.imageUrl" alt="example" src="{{ post.imageUrl }}" />
     </ng-template>
   </div>
 </div>
